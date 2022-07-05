@@ -1,4 +1,3 @@
-use actix_web::HttpResponse;
 use mythus::startup::run;
 use std::net::TcpListener;
 

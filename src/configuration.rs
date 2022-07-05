@@ -16,14 +16,12 @@ pub struct DatabaseSettings {
 
 pub fn get_configuration() -> Result<Settings, config::ConfigError> {
     // Initialize our configuration reader
-    let mut settings = Config::builder()
+    let settings = Config::builder()
         // .set_default("default", "1")?
         // Add configuration values from a file named `configuration`.
         // It will look at any top-level file with an extension
         // that `config` knows how to parse: yaml, json, etc.
-        .add_source(config::File::with_name("./configuration"))
-        .build()
-        .unwrap();
-    println!("{:?}", settings);
-    settings.try_into()
+        .add_source(config::File::with_name("./configuration.yaml"))
+        .build()?;
+    settings.try_deserialize()
  }
