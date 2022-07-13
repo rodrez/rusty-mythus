@@ -1,7 +1,7 @@
-use mythus::startup::run;
-use std::net::TcpListener;
-use sqlx::{Connection, PgConnection, query};
 use mythus::configuration::get_configuration;
+use mythus::startup::run;
+use sqlx::{query, Connection, PgConnection};
+use std::net::TcpListener;
 
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind port");
@@ -85,4 +85,3 @@ async fn subscribe_returns_400_when_data_is_missing() {
         )
     }
 }
-

@@ -1,35 +1,37 @@
 [package]
+edition = "2021"
 name = "mythus"
 version = "0.1.0"
-edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
 path = "src/lib.rs"
 
 [[bin]]
-path = "src/main.rs"
 name = "mythus"
+path = "src/main.rs"
 
 [dependencies]
 actix-web = "4"
+chrono = "0.4.19"
 config = "0.13.1"
 dotenv = "0.15.0"
-serde = {version="1", features=["derive"]}
-tokio = { version="1", features=["macros", "rt-multi-thread"] }
+serde = {version = "1", features = ["derive"]}
+tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
+uuid = {version = "0.8.2", features = ["v4"]}
 
 # Database management
 [dependencies.sqlx]
-version = "0.6.0"
 default-features = false
 features = [
-    "runtime-actix-rustls", # uses actix as runtime for the features and rustls as TLS backend
-    "macros", # Access to sqlx::query! and sqlx::query_as!
-    "postgres", # Provides postgress-specific functionality
-    "uuid", # Adds uuid support for our id column
-    "chrono", # Adds supports to SQL timestampz to DateTime<T>
-    "migrate" # Provides migrations functionality
+  "runtime-actix-rustls", # uses actix as runtime for the features and rustls as TLS backend
+  "macros", # Access to sqlx::query! and sqlx::query_as!
+  "postgres", # Provides postgress-specific functionality
+  "uuid", # Adds uuid support for our id column
+  "chrono", # Adds supports to SQL timestampz to DateTime<T>
+  "migrate", # Provides migrations functionality
 ]
+version = "0.6.0"
 
 [dev-dependencies]
 reqwest = "0.11"
