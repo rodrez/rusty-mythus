@@ -18,7 +18,7 @@ config = "0.13.1"
 dotenv = "0.15.0"
 serde = {version = "1", features = ["derive"]}
 tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
-uuid = {version = "0.8.2", features = ["v4"]}
+uuid = {version = "1", features = ["v4"]}
 
 # Database management
 [dependencies.sqlx]
