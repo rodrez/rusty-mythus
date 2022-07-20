@@ -16,12 +16,13 @@ actix-web = "4"
 chrono = "0.4.19"
 config = "0.13.1"
 dotenv = "0.15.0"
-serde = {version = "1", features = ["derive"]}
-tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
-uuid = {version = "1", features = ["v4"]}
 env_logger = "0.9"
 log = "0.4"
-tracing = {version="0.1", features= ["log"]}
+serde = {version = "1", features = ["derive"]}
+serde_json = "1.0"
+tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
+tracing = {version = "0.1", features = ["log"]}
+uuid = {version = "1", features = ["v4"]}
 
 # Database management
 [dependencies.sqlx]
@@ -33,6 +34,7 @@ features = [
   "uuid", # Adds uuid support for our id column
   "chrono", # Adds supports to SQL timestampz to DateTime<T>
   "migrate", # Provides migrations functionality
+  "json", # Add support for JSON and JSONB (in postgres) using the serde_json crate.
 ]
 version = "0.6.0"
 
