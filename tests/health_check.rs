@@ -1,8 +1,30 @@
 use mythus::configuration::{get_configuration, DatabaseSettings};
 use mythus::startup::run;
+use mythus::telemetry::{get_subscriber, init_subscriber};
+use once_cell::sync::Lazy;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use std::net::TcpListener;
 use uuid::Uuid;
+
+// ? To see the test logs of a specific test case us `TEST_LOG=true cargo test health_check_works | bunyan`
+
+// Ensures that `init_subscriber` is initialized once using `once_cell`
+static TRACING: Lazy<()> = Lazy::new(|| {
+    let subscriber_name = "mythus".into();
+    let default_filter_level = "debug".into();
+
+    // We cannot assign the output of `get_subscriber` to a variable based on the value
+    // of `TEST_LOG` because the sink is part of the type returned by `get_subscriber`,
+    // therefore they are not the same type. We could work around it, but this is the
+    // most straight-forward way of moving forward.
+    if std::env::var("TEST_LOG").is_ok() {
+        let subscriber = get_subscriber(subscriber_name, default_filter_level, std::io::stdout);
+        init_subscriber(subscriber);
+    } else {
+        let subscriber = get_subscriber(subscriber_name, default_filter_level, std::io::sink);
+        init_subscriber(subscriber);
+    };
+});
 
 pub struct TestApp {
     pub address: String,
@@ -10,6 +32,9 @@ pub struct TestApp {
 }
 
 async fn spawn_app() -> TestApp {
+    // The first time is called it will initialize, the rest will be skipped
+    Lazy::force(&TRACING);
+
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind port");
     let port = listener.local_addr().unwrap().port();
     let address = format!("http://127.0.0.1:{}", port);
