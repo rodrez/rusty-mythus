@@ -1,0 +1,46 @@
+{
+  "db": "PostgreSQL",
+  "4bd6bbade521cd577279e91d8a8b978748046beff031d153699b351089c3bf9b": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid",
+          "Text",
+          "Text",
+          "Timestamptz"
+        ]
+      }
+    },
+    "query": "\n            INSERT INTO subscriptions (id, email, name, subscribed_at)\n            VALUES ($1, $2, $3, $4)\n            "
+  },
+  "a9a7f7cb9b03a47876b0a759e542e21586ad0eeab50999323295e9554bf8f1a7": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Text",
+          "Timestamptz",
+          "Timestamptz",
+          "Bool"
+        ]
+      }
+    },
+    "query": "\n            INSERT INTO jobs (id, title, company, workplace_type, address, employment_type, description, skills, tools, min_salary, max_salary, salary_rate, bonuses, benefits, created_at, updated_at, is_active)\n            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)\n            "
+  }
+}
