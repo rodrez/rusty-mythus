@@ -80,8 +80,6 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
         .add_source(config::Environment::with_prefix("APP").separator("__"))
         .build()?;
 
-    println!("SETTINGS: {:#?} | SETTINGs END.", settings);
-
     settings.try_deserialize::<Settings>()
 }
 
