@@ -29,3 +29,35 @@ services:
     # All incoming request should be routed to our app
     routes:
       - path: /
+    
+    # Environment Vars
+    envs:
+      - key: APP_DATABASE__USERNAME
+        scope: RUN_TIME
+        value: ${mythus-db.USERNAME}
+      - key: APP_DATABASE__PASSWORD
+        scope: RUN_TIME
+        value: ${mythus-db.PASSWORD}
+      - key: APP_DATABASE__HOST
+        scope: RUN_TIME
+        value: ${mythus-db.HOSTNAME}
+      - key: APP_DATABASE__PORT
+        scope: RUN_TIME
+        value: ${mythus-db.PORT}
+      - key: APP_DATABASE__DATABASE_NAME
+        scope: RUN_TIME
+        value: ${mythus-db.DATABASE} 
+
+databases:
+  # PG = Postgres
+  - engine: PG
+
+    # Database name
+    name: mythus-db
+
+    # Keeping the bill low, initially
+    num_nodes: 1
+    size: db-s-dev-database
+
+    # Postgress version - using the latest
+    version: "12"
