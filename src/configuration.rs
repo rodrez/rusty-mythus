@@ -77,7 +77,11 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
         ))
         // Add in settings from environment variables (with a prefix of APP and '__' as separator)
         // E.g. `APP_APPLICATION__PORT=5001` would set "Settings.application.port"
-        .add_source(config::Environment::with_prefix("APP").separator("__"))
+        .add_source(
+            config::Environment::with_prefix("APP")
+                .prefix_separator("_")
+                .separator("__"),
+        )
         .build()?;
 
     settings.try_deserialize::<Settings>()
