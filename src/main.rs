@@ -12,9 +12,6 @@ async fn main() -> std::io::Result<()> {
     // All configs come from `configuration.rs` and `configuration.yml`
     let configuration = get_configuration().expect("Failed to read configuration.");
 
-    println!("DB_NAME: {:#?}", configuration.database.database_name);
-    println!("DB_: {:#?}", configuration.database.port);
-
     // Exposed the secret
     let connection_pool = PgPoolOptions::new()
         .acquire_timeout(std::time::Duration::from_secs(2))
