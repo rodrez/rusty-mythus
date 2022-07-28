@@ -6,9 +6,9 @@ use sqlx::PgPool;
 use std::net::TcpListener;
 use tracing_actix_web::TracingLogger;
 
-pub fn run(listener: TcpListener, connection: PgPool) -> Result<Server, std::io::Error> {
+pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Error> {
     // Wraps the connections in a smart pointer
-    let db_pool = Data::new(connection);
+    let db_pool = Data::new(db_pool);
 
     // We then capture the connection from the surrounding environment
     let server = HttpServer::new(move || {

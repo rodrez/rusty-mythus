@@ -33,7 +33,7 @@ ENV SQLX_OFFLINE true
 
 # Builds our binary
 # Uses the release profile to make it faster
-RUN cargo build --release
+RUN cargo build --release --bin mythus
 
 
 # Runtime Stage

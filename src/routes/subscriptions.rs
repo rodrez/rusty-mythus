@@ -1,5 +1,5 @@
-use actix_web::web::Form;
-use actix_web::{web, HttpResponse};
+use actix_web::web::{Data, Form};
+use actix_web::HttpResponse;
 use chrono::Utc;
 use sqlx::PgPool;
 use uuid::Uuid;
@@ -20,7 +20,7 @@ pub struct FormData {
         subscriber_name = %form.name
     )
 )]
-pub async fn subscribe(form: Form<FormData>, pool: web::Data<PgPool>) -> HttpResponse {
+pub async fn subscribe(form: Form<FormData>, pool: Data<PgPool>) -> HttpResponse {
     match insert_subscriber(&pool, &form).await {
         Ok(_) => HttpResponse::Ok().finish(),
         Err(_) => HttpResponse::InternalServerError().finish(),
