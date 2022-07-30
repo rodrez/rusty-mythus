@@ -25,9 +25,16 @@ pub struct FormData {
 pub async fn subscribe(form: Form<FormData>, pool: Data<PgPool>) -> HttpResponse {
     // `web::Form` is a wrapper round `FormData`
     // `form.0` gives access to the underlying `FormData`
+
+    let name = match SubscriberName::parse(form.0.name) {
+        Ok(name) => name,
+        // Return early if the name is invalid, with a 400
+        Err(_) => return HttpResponse::BadRequest().finish(),
+    };
+
     let new_subscriber = NewSubscriber {
         email: form.0.email,
-        name: SubscriberName::parse(form.0.name).expect("Name validation failed."),
+        name,
     };
 
     match insert_subscriber(&pool, &new_subscriber).await {
