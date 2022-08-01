@@ -31,9 +31,9 @@ unicode-segmentation = "1"
 uuid = { version = "1", features = ["v4"] }
 tracing-subscriber = { version = "0.3", features = ["registry", "env-filter"] }
 
-[dependencies.djangohashers]
-version = "^1.5"
-features = ["fpbkdf2", "with_argon2"]
+# [dependencies.djangohashers]
+# version = "^1.5"
+# features = ["fpbkdf2", "with_argon2"]
 
 # Database management - table like syntax`
 [dependencies.sqlx]
