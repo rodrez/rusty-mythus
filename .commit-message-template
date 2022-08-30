@@ -1,0 +1,15 @@
+########50 characters############################
+FEATURE: Added get_job endpoint. 
+########72 characters##################################################
+
+Task:
+# Problem, Task, Reason for Commit
+Did not have the get_jobs endpoint yet
+
+Solution
+# Solution or List of Changes
+Created new endpoint that can pull all the jobs
+
+Note
+# Special instructions, testing steps, rake, etc
+Will need to create dynamic functionality for filters.
