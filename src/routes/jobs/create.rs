@@ -1,3 +1,4 @@
+use crate::routes::jobs::Job;
 use actix_web::web::Form;
 use actix_web::{web, HttpResponse};
 use chrono::Utc;
@@ -15,32 +16,15 @@ pub struct Tools {
     name: String,
 }
 
-#[derive(serde::Deserialize)]
-pub struct JobFormData {
-    title: String,
-    company: String,
-    workplace_type: String,
-    address: String,
-    employment_type: String,
-    description: String,
-    skills: String, // Verify this
-    tools: String,
-    min_salary: String,
-    max_salary: String,
-    salary_rate: String,
-    bonuses: String,
-    benefits: String,
-    is_active: bool,
-}
-// -d "title=Test&company=Test&workplace_type=Test&address=Test&employment_type=Test&description=Test&skills=Test&tools=Test&min_salary=Test&max_salary=Test&salary_rate=Test&bonuses=Test&benefits=Test&is_active=true&created_at=2020-01-01T00:00:00Z&updated_at=2020-01-01T00:00:00Z"
-pub async fn create_job(form: Form<JobFormData>, pool: web::Data<PgPool>) -> HttpResponse {
+// -d "title=Test&company=Test&workplace_type=Test&address=Test&employment_type=Test&description=Test&skills=skill1&tools=tool1&min_salary=Test&max_salary=Test&salary_rate=Test&bonuses=10k Sign In&benefits=401k&is_active=true&created_at=2020-01-01T00:00:00Z&updated_at=2020-01-01T00:00:00Z"
+pub async fn create_job(form: Form<Job>, pool: web::Data<PgPool>) -> HttpResponse {
     // Unique Identifier to trace issues
     let request_id = Uuid::new_v4();
 
     tracing::info!(
         "
         request_id {} -> 
-        JOB DATA: {}, {}, {}, {}, {}, {}, {:?}, {:?}, {}, {}, {}, {}, {}, {}
+        JOB DATA: {}, {}, {}, {}, {}, {}, {:#?}, {:#?}, {}, {}, {}, {:#?}, {:#?}, {}
         ",
         request_id,
         form.title,

@@ -3,24 +3,24 @@ use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct JobTitle {
-    title: String,
-    company: String,
-    workplace_type: String,
-    address: String,
-    employment_type: String,
-    description: String,
-    skills: String, // Verify this
-    tools: String,
-    min_salary: String,
-    max_salary: String,
-    salary_rate: String,
-    bonuses: String,
-    benefits: String,
-    is_active: bool,
+pub struct Job {
+    pub title: String,
+    pub company: String,
+    pub workplace_type: String,
+    pub address: String,
+    pub employment_type: String,
+    pub description: String,
+    pub skills: String, // Verify this
+    pub tools: String,
+    pub min_salary: String,
+    pub max_salary: String,
+    pub salary_rate: String,
+    pub bonuses: String,
+    pub benefits: String,
+    pub is_active: bool,
 }
 
-// Spans, like logs, have an as&sociated level
+// Spans, like logs, have an associated level
 // `info_span` creates a span at the level info
 #[tracing::instrument(name = "Getting all jobs", skip(pool))]
 pub async fn get_jobs(pool: web::Data<PgPool>) -> HttpResponse {
@@ -30,22 +30,22 @@ pub async fn get_jobs(pool: web::Data<PgPool>) -> HttpResponse {
 
     match jobs {
         Ok(jobs) => {
-            let jobs: Vec<JobTitle> = jobs
+            let jobs: Vec<Job> = jobs
                 .into_iter()
-                .map(|job| JobTitle {
+                .map(|job| Job {
                     title: job.title,
                     company: job.company,
                     workplace_type: job.workplace_type,
                     address: job.address,
                     employment_type: job.employment_type,
                     description: job.description,
-                    skills: job.skills,
-                    tools: job.tools,
+                    skills: job.skills.unwrap(),
+                    tools: job.tools.unwrap(),
                     min_salary: job.min_salary,
                     max_salary: job.max_salary,
                     salary_rate: job.salary_rate,
-                    bonuses: job.bonuses,
-                    benefits: job.benefits,
+                    bonuses: job.bonuses.unwrap(),
+                    benefits: job.benefits.unwrap(),
                     is_active: job.is_active,
                 })
                 .collect();
