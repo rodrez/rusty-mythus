@@ -18,6 +18,13 @@ pub struct Job {
     pub bonuses: String,
     pub benefits: String,
     pub is_active: bool,
+    pub agreement: bool,
+
+    // recruiter info
+    pub first_name: String,
+    pub last_name: String,
+    pub company_size: String,
+    pub phone_number: String,
 }
 
 // Spans, like logs, have an associated level
@@ -47,9 +54,18 @@ pub async fn get_jobs(pool: web::Data<PgPool>) -> HttpResponse {
                     bonuses: job.bonuses.unwrap(),
                     benefits: job.benefits.unwrap(),
                     is_active: job.is_active,
+                    agreement: job.agreement,
+                    // Recruiter info
+                    first_name: job.first_name,
+                    last_name: job.last_name,
+                    company_size: job.company_size,
+                    phone_number: job.phone_number,
                 })
                 .collect();
+
+            println!("---------------");
             println!("JOBS: {:?}", jobs);
+            println!("---------------");
             HttpResponse::Ok().json(jobs)
         }
         Err(_) => HttpResponse::InternalServerError().finish(),
