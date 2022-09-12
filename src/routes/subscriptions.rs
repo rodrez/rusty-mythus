@@ -12,7 +12,7 @@ pub struct FormData {
     name: String,
 }
 
-// Spans, like logs, have an as&sociated level
+// Spans, like logs, have an associated level
 // `info_span` creates a span at the level info
 #[tracing::instrument(
     name = "Adding a new subscriber",
