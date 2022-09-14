@@ -31,11 +31,7 @@ CREATE TABLE jobs
     bonuses TEXT,
     benefits TEXT ,
     is_active BOOLEAN NOT NULL,
-    agreement BOOLEAN NOT NULL,
     created_at timestamptz NOT NULL,
-    updated_at timestamptz NOT NULL,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    company_size TEXT NOT NULL,
-    phone_number TEXT NOT NULL
+    updated_at timestamptz NOT NULL
+
 )
