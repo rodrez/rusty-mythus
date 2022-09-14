@@ -14,43 +14,41 @@ path = "src/main.rs"
 [dependencies]
 actix-cors = "0.6.2"
 actix-web = "4"
-chrono = "0.4.19"
+chrono = "0.4.22"
 claim = "0.5"
 config = "0.13.1"
-dotenv = "0.15.0"
 once_cell = "1"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1.0"
-serde_derive = "1.0.144"
+secrecy = {version = "0.8", features = ["serde"]}
+serde = {version = "1", features = ["derive"]}
 serde-aux = "3"
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-secrecy = { version = "0.8", features = ["serde"] }
-tracing = { version = "0.1", features = ["log"] }
+serde_derive = "1.0.144"
+serde_json = "1.0"
+tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
+tracing = {version = "0.1", features = ["log"]}
 tracing-actix-web = "0.5"
 tracing-bunyan-formatter = "0.3"
 tracing-log = "0.1"
+tracing-subscriber = {version = "0.3", features = ["registry", "env-filter"]}
 unicode-segmentation = "1"
-uuid = { version = "1", features = ["v4"] }
-tracing-subscriber = { version = "0.3", features = ["registry", "env-filter"] }
-
-# [dependencies.djangohashers]
-# version = "^1.5"
-# features = ["fpbkdf2", "with_argon2"]
+uuid = {version = "1", features = ["v4"]}
+validator = "0.16.0"
 
 # Database management - table like syntax`
 [dependencies.sqlx]
 default-features = false
 features = [
   "runtime-actix-rustls", # uses actix as runtime for the features and rustls as TLS backend
-  "macros",               # Access to sqlx::query! and sqlx::query_as!
-  "postgres",             # Provides postgress-specific functionality
-  "uuid",                 # Adds uuid support for our id column
-  "chrono",               # Adds supports to SQL timestampz to DateTime<T>
-  "migrate",              # Provides migrations functionality
-  "json",                 # Add support for JSON and JSONB (in postgres) using the serde_json crate.
-  "offline",
+  "macros", # Access to sqlx::query! and sqlx::query_as!
+  "postgres", # Provides postgress-specific functionality
+  "uuid", # Adds uuid support for our id column
+  "chrono", # Adds supports to SQL timestampz to DateTime<T>
+  "migrate", # Provides migrations functionality
+  "json", # Add support for JSON and JSONB (in postgres) using the serde_json crate.
+  "offline", 
 ]
 version = "0.6.0"
 
 [dev-dependencies]
 reqwest = "0.11"
+fake = "~2.3"
+dotenv = "0.15.0"
