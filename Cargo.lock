@@ -1148,7 +1148,6 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "sqlx",
- "time 0.3.14",
  "tokio",
  "tracing",
  "tracing-actix-web",

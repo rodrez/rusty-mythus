@@ -1,6 +1,7 @@
 use actix_web::{web, HttpResponse};
 use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
+use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Job {
@@ -31,9 +32,17 @@ pub struct Job {
 // `info_span` creates a span at the level info
 #[tracing::instrument(name = "Getting all jobs", skip(pool))]
 pub async fn get_jobs(pool: web::Data<PgPool>) -> HttpResponse {
+    let request_id = Uuid::new_v4();
+
+    tracing::info!("request_id {} -> ", request_id);
     let jobs = sqlx::query!("SELECT * FROM jobs;")
         .fetch_all(pool.get_ref())
         .await;
+
+    tracing::info!(
+        "request_id {} -> All jobs pull from the database",
+        request_id
+    );
 
     match jobs {
         Ok(jobs) => {
@@ -63,11 +72,9 @@ pub async fn get_jobs(pool: web::Data<PgPool>) -> HttpResponse {
                 })
                 .collect();
 
-            println!("---------------");
-            println!("JOBS: {:?}", jobs);
-            println!("---------------");
             HttpResponse::Ok().json(jobs)
         }
+
         Err(_) => HttpResponse::InternalServerError().finish(),
     }
 }
