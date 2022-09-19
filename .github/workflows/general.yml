@@ -79,7 +79,7 @@ jobs:
 
       - name: Check sqlx-data.json is up-to-date
         run: |
-          cargo sqlx prepare --check -- --bin mythus
+          cargo sqlx prepare -- --bin mythus && cargo sqlx prepare --check -- --bin mythus
 
       - name: Run cargo test
         uses: actions-rs/cargo@v1

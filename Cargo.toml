@@ -47,7 +47,7 @@ features = [
   "json", # Add support for JSON and JSONB (in postgres) using the serde_json crate.
   "offline", 
 ]
-version = "0.6.0"
+version = "0.5.7"
 
 [dev-dependencies]
 reqwest = "0.11"
