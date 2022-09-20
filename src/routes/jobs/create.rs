@@ -24,7 +24,7 @@ pub async fn create_job(form: Form<Job>, pool: web::Data<PgPool>) -> HttpRespons
     tracing::info!(
         "
         request_id {} -> 
-        JOB DATA: {}, {}, {}, {}, {}, {}, {:#?}, {:#?}, {}, {}, {}, {:#?}, {:#?}, {}, {}, {}, {}, {}
+        JOB DATA: title={}, company={}, {}, {}, {}, {}, {:#?}, {:#?}, {}, {}, {}, {:#?}, {:#?}, {}, {}, {}, {}, {}
         ",
         request_id,
         form.title,
