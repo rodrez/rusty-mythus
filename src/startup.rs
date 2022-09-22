@@ -1,4 +1,4 @@
-use crate::routes::{create_job, get_jobs, health_check, subscribe};
+use crate::routes::{create_job, delete_job, get_jobs, health_check, subscribe};
 use actix_cors::Cors;
 use actix_web::dev::Server;
 use actix_web::web::Data;
@@ -29,6 +29,7 @@ pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Er
             .route("/v1/subscribe", web::post().to(subscribe))
             .route("/v1/create_job", web::post().to(create_job))
             .route("/v1/get_jobs", web::get().to(get_jobs))
+            .route("/v1/delete_job/{job_id}", web::post().to(delete_job))
             .app_data(db_pool.clone())
     })
     .listen(listener)?

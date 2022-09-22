@@ -5,6 +5,7 @@ use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Job {
+    pub id: String,
     pub title: String,
     pub company: String,
     pub workplace_type: String,
@@ -49,6 +50,7 @@ pub async fn get_jobs(pool: web::Data<PgPool>) -> HttpResponse {
             let jobs: Vec<Job> = jobs
                 .into_iter()
                 .map(|job| Job {
+                    id: job.id.as_hyphenated().to_string(),
                     title: job.title,
                     company: job.company,
                     workplace_type: job.workplace_type,

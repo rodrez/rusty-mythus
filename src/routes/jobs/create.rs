@@ -1,4 +1,3 @@
-use crate::routes::jobs::Job;
 use actix_web::web::Form;
 use actix_web::{web, HttpResponse};
 use chrono::Utc;
@@ -14,6 +13,31 @@ pub struct Skills {
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Tools {
     name: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Job {
+    pub title: String,
+    pub company: String,
+    pub workplace_type: String,
+    pub address: String,
+    pub employment_type: String,
+    pub description: String,
+    pub skills: String, // Verify this
+    pub tools: String,
+    pub min_salary: String,
+    pub max_salary: String,
+    pub salary_rate: String,
+    pub bonuses: String,
+    pub benefits: String,
+    pub is_active: bool,
+    pub agreement: bool,
+
+    // recruiter info
+    pub first_name: String,
+    pub last_name: String,
+    pub company_size: String,
+    pub phone_number: String,
 }
 
 // "title=SWE&company=Amazon&workplace_type=Remote&address=T&employment_type=Internship&description=Some description&skills=Problem Solver&tools=Vs Code&min_salary=100k&max_salary=350k&salary_rate=Yearly&bonuses=10k Sign In&benefits=Unlimited PTO&is_active=true&created_at=2020-01-01T00:00:00Z&updated_at=2020-01-01T00:00:00Z&agreement=false&first_name=Fabian&last_name=Rodriguez&phone_number=717&company_size=just me"
@@ -87,7 +111,7 @@ pub async fn create_job(form: Form<Job>, pool: web::Data<PgPool>) -> HttpRespons
                 "request_id {} -> New job have been saved.",
                 request_id
             );
-            HttpResponse::Ok().content_type("application/json").finish()
+            HttpResponse::Created().content_type("application/json").finish()
         }
         Err(e) => {
             tracing::error!(
