@@ -9,8 +9,8 @@ on:
       - main
   pull_request:
     types: [ opened, synchronize, reopened ]
-    branches:
-      - main
+    # branches:
+    #   - root-chapter-07-part0
 
 env:
   CARGO_TERM_COLOR: always
@@ -57,7 +57,7 @@ jobs:
           path: |
             ~/.cargo/bin/sqlx
             ~/.cargo/bin/cargo-sqlx
-          key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}-${{ env.SQLX_FEATURES }}-2
+          key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}-${{ env.SQLX_FEATURES }}
 
       - name: Install sqlx-cli 
         uses: actions-rs/cargo@v1
