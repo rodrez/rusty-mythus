@@ -14,7 +14,7 @@ path = "src/main.rs"
 [dependencies]
 actix-cors = "0.6.2"
 actix-web = "4"
-argon = { version = "0.4.1", features = ["std"] }
+argon2 = { version = "0.4.1", features = ["std"] }
 chrono = "0.4.22"
 claim = "0.5"
 config = "0.13.1"
