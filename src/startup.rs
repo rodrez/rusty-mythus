@@ -1,3 +1,4 @@
+use crate::email_client::EmailClient;
 use crate::routes::{
     create_job, delete_job, get_all_jobs, get_single_job, health_check, subscribe, update_job,
 };
@@ -9,9 +10,16 @@ use sqlx::PgPool;
 use std::net::TcpListener;
 use tracing_actix_web::TracingLogger;
 
-pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Error> {
+pub fn run(
+    listener: TcpListener,
+    db_pool: PgPool,
+    email_client: EmailClient,
+) -> Result<Server, std::io::Error> {
     // Wraps the connections in a smart pointer
     let db_pool = Data::new(db_pool);
+
+    // Wraps the EmailClient
+    let email_client = Data::new(email_client);
 
     // We then capture the connection from the surrounding environment
     let server = HttpServer::new(move || {
@@ -35,6 +43,7 @@ pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Er
             .route("/v1/delete_job/{job_id}", web::post().to(delete_job))
             .route("/v1/update_job/{job_id}", web::post().to(update_job))
             .app_data(db_pool.clone())
+            .app_data(email_client.clone())
     })
     .listen(listener)?
     .run();

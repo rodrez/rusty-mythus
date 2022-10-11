@@ -6,3 +6,7 @@ database:
   username: "postgres"
   password: "password"
   database_name: "mythus"
+email_client:
+  base_url: "localhost"
+  sender_email: "fabian@unyth.com"
+  authorization_token: "4f11b1ab-4dd6-422a-a452-6bfa7c3ed838"

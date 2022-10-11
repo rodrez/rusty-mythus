@@ -1,4 +1,5 @@
 use mythus::configuration::get_configuration;
+use mythus::email_client::EmailClient;
 use mythus::startup::run;
 use mythus::telemetry::{get_subscriber, init_subscriber};
 use sqlx::postgres::PgPoolOptions;
@@ -12,6 +13,17 @@ async fn main() -> std::io::Result<()> {
     // All configs come from `configuration.rs` and `configuration.yml`
     let configuration = get_configuration().expect("Failed to read configuration.");
 
+    let sender_email = configuration
+        .email_client
+        .sender()
+        .expect("Invalid sender address");
+
+    let email_client = EmailClient::new(
+        configuration.email_client.base_url,
+        sender_email,
+        configuration.email_client.authorization_token,
+    );
+
     // Exposed the secret
     let connection_pool = PgPoolOptions::new()
         .acquire_timeout(std::time::Duration::from_secs(2))
@@ -23,6 +35,6 @@ async fn main() -> std::io::Result<()> {
     );
     let listener = TcpListener::bind(address)?;
 
-    run(listener, connection_pool)?.await?;
+    run(listener, connection_pool, email_client)?.await?;
     Ok(())
 }
