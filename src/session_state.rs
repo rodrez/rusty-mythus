@@ -8,7 +8,7 @@ use uuid::Uuid;
 pub struct TypedSession(Session);
 
 impl TypedSession {
-    const USER_ID_KEY: &'static str = "user_id";
+    const USER_ID_KEY: &'static str = "id";
 
     pub fn renew(&self) {
         self.0.renew();

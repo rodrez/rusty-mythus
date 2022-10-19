@@ -14,7 +14,7 @@ path = "src/main.rs"
 [dependencies]
 actix-cors = "0.6.2"
 actix-web = "4"
-actix-session = "0.7.2"
+actix-session = { version = "0.7.2", features = ["redis-rs-tls-session"] }
 argon2 = { version = "0.4.1", features = ["std"] }
 chrono = "0.4.22"
 claim = "0.5"
@@ -36,6 +36,10 @@ unicode-segmentation = "1"
 uuid = {version = "1", features = ["v4"]}
 validator = "0.16.0"
 reqwest = {version = "0.11", default-features = false, features = ["json", "rustls-tls"]}
+rand = { version = "0.8", features=["std_rng"] }
+anyhow = "1.0.40"
+thiserror = "1.0.24"
+actix-web-lab = "0.16"
 
 # Database management - table like syntax`
 [dependencies.sqlx]
